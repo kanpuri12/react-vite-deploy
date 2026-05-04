@@ -1,0 +1,47 @@
+/* src/components/ResumeBanner.module.css */
+.outer {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 2.5rem 3rem;
+}
+
+.banner {
+  background: var(--accent);
+  color: #fff;
+  padding: 1.75rem 2rem;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.heading {
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.sub {
+  font-size: 12px;
+  opacity: 0.75;
+  margin-top: 3px;
+}
+
+.btn {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  background: #fff;
+  color: var(--accent);
+  padding: 10px 22px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  transition: opacity 0.2s;
+  flex-shrink: 0;
+}
+
+.btn:hover { opacity: 0.9; }

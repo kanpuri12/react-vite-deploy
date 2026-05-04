@@ -1,0 +1,134 @@
+/* src/components/Navbar.module.css */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(247, 246, 242, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid transparent;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2.5rem;
+  height: 60px;
+  transition: border-color 0.3s, background 0.3s;
+}
+
+@media (prefers-color-scheme: dark) {
+  .nav { background: rgba(17, 17, 16, 0.88); }
+}
+
+.scrolled {
+  border-bottom-color: var(--border);
+}
+
+.logo {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 0.08em;
+  text-decoration: none;
+}
+
+.links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
+
+.link {
+  font-size: 13px;
+  color: var(--ink2);
+  background: none;
+  border: none;
+  cursor: pointer;
+  letter-spacing: 0.03em;
+  padding: 0;
+  transition: color 0.2s;
+  font-family: var(--font-body);
+}
+
+.link:hover { color: var(--accent); }
+
+.cta {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  background: var(--accent);
+  color: #fff;
+  padding: 7px 18px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  letter-spacing: 0.05em;
+  transition: opacity 0.2s;
+}
+
+.cta:hover { opacity: 0.85; }
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+}
+
+.hamburger span {
+  display: block;
+  width: 22px;
+  height: 1.5px;
+  background: var(--ink);
+  transition: transform 0.2s;
+}
+
+.drawer {
+  display: none;
+  position: absolute;
+  top: 60px;
+  left: 0;
+  right: 0;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 1.5rem 2.5rem;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.drawerLink {
+  font-size: 15px;
+  color: var(--ink);
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  padding: 0;
+  font-family: var(--font-body);
+  transition: color 0.2s;
+}
+
+.drawerLink:hover { color: var(--accent); }
+
+@media (max-width: 768px) {
+  .links { display: none; }
+  .cta { display: none; }
+  .hamburger { display: flex; }
+  .drawer { display: flex; }
+}
+
+.logoAccent { color: var(--accent); }
+
+.linkActive { color: var(--accent) !important; }
+
+.activeDot {
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px; height: 4px;
+  background: var(--accent);
+  border-radius: 50%;
+}
