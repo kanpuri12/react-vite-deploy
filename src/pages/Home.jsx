@@ -13,9 +13,9 @@ export default function Home() {
   return (
     <>
       <Helmet>
-        <title>Harshit Kumar | Full Stack Developer — Noida</title>
+        <title>Harshit Gupta | Full Stack Developer — Noida</title>
         <meta name="description" content="Java & Full Stack Developer with 3+ years building scalable Spring Boot backends and React frontends. Based in Noida, India." />
-        <meta property="og:title" content="Harshit Kumar | Full Stack Developer" />
+        <meta property="og:title" content="Harshit Gupta | Full Stack Developer" />
         <meta property="og:description" content="Java & Full Stack Developer — Spring Boot · React · AWS" />
         <meta property="og:type" content="website" />
       </Helmet>

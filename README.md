@@ -1,4 +1,4 @@
-# Harshit Kumar — Portfolio Website
+# Harshit Gupta — Portfolio Website
 
 React frontend for the portfolio. Backend: Spring Boot (separate repo). Deployed on AWS S3 + CloudFront.
 

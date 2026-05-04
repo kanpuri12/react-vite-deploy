@@ -39,7 +39,7 @@ export default function BlogPost() {
   return (
     <>
       <Helmet>
-        <title>{post.title} | Harshit Kumar</title>
+        <title>{post.title} | Harshit Gupta</title>
         <meta name="description" content={post.excerpt} />
       </Helmet>
 
