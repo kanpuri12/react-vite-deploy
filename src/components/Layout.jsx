@@ -3,6 +3,7 @@ import { Outlet } from 'react-router-dom'
 import { motion, useScroll, useSpring } from 'framer-motion'
 import Navbar from './Navbar'
 import Footer from './Footer'
+import Chat from './Chat'
 
 export default function Layout() {
   const { scrollYProgress } = useScroll()
@@ -29,6 +30,7 @@ export default function Layout() {
         <Outlet />
       </main>
       <Footer />
+      <Chat />
     </>
   )
 }
