@@ -1,10 +1,12 @@
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { motion } from 'framer-motion'
+import axios from 'axios'
 import { FiMail, FiPhone, FiLinkedin, FiGithub, FiMapPin } from 'react-icons/fi'
 import { useScrollAnimation } from '../hooks/index.js'
 import { submitContact, resetContact } from '../store/contactSlice'
 import styles from './Contact.module.css'
+import Toast from './Toast'
 
 const CONTACT_LINKS = [
   { icon: FiMail,     label: 'harshit123907@gmail.com',          href: 'mailto:harshit123907@gmail.com' },
@@ -21,14 +23,41 @@ export default function Contact() {
   const dispatch = useDispatch()
   const { status, error } = useSelector(s => s.contact)
   const [form, setForm] = useState(INITIAL_FORM)
+  const [toast, setToast] = useState({ open: false, type: 'success', message: '' })
 
   const handleChange = (e) => setForm(prev => ({ ...prev, [e.target.name]: e.target.value }))
 
-  const handleSubmit = (e) => {
+  const serviceId="service_noziu8g";
+  const templateId="template_sjfwpqk";
+  const publicKey="di4fEdmVp2BUGfNvo";
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    dispatch(submitContact(form))
-    setForm(INITIAL_FORM)
+    // dispatch(submitContact(form))
+  const data ={
+    service_id: serviceId,
+    template_id: templateId,
+    user_id: publicKey,
+    template_params:{
+      from_name: form.name,
+      from_email: form.email,
+      to_name: "Harshit",
+      message: form.message
+    }
   }
+   console.log('Sending email with data:', data);
+   try{
+    const res = await axios.post('https://api.emailjs.com/api/v1.0/email/send', data);
+    console.log('Email sent successfully:', res.data);
+    setForm(INITIAL_FORM)
+  setToast({ open: true, type: 'success', message: 'Message sent! I\'ll get back to you soon.' })
+   }
+   catch(err){
+    console.error('Email sending error:', err);
+  setToast({ open: true, type: 'error', message: 'Failed to send message. Please try again.' })
+   }
+  }
+
+ 
 
   return (
     <section id="contact" className="container">
@@ -116,6 +145,7 @@ export default function Contact() {
           )}
         </div>
       </motion.div>
+      <Toast open={toast.open} type={toast.type} message={toast.message} onClose={() => setToast({ ...toast, open: false })} />
     </section>
   )
 }
