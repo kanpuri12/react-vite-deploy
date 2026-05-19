@@ -40,6 +40,20 @@
   }
 }
 
+/* Manual dark mode via data attribute */
+:root[data-theme="dark"] {
+  --ink:     #f0efe9;
+  --ink2:    #b4b2a9;
+  --ink3:    #6e6d67;
+  --surface: #111110;
+  --card:    #1a1a18;
+  --border:  #2c2c2a;
+  --tag-bg:  #1f1f1d;
+  --accent:  #3dd68c;
+  --accent2: #0d2b1e;
+  --accent3: #1a4a30;
+}
+
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;

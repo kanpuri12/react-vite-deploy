@@ -27,8 +27,8 @@ export default function Home() {
       <Projects />
       <hr className="divider" />
       <Skills />
-      <hr className="divider" />
-      <Blog />
+      {/* <hr className="divider" />
+      <Blog /> */}
       <hr className="divider" />
       <Testimonials />
       <hr className="divider" />

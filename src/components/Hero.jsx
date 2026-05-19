@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react'
 import { motion, useMotionValue, useSpring } from 'framer-motion'
 import { downloadResume } from '../services/api'
 import styles from './Hero.module.css'
+import avatar from '../assets/avatar.jpg'
 
 const fadeUp = {
   hidden: { opacity: 0, y: 32 },
@@ -167,7 +168,9 @@ export default function Hero() {
           animate={{ rotate: 360 }}
           transition={{ duration: 18, repeat: Infinity, ease: 'linear' }}
         />
-        <div className={styles.avatar}>HG</div>
+        <div className={styles.avatar}>
+          <img src={avatar} alt="Harshit Gupta" className={styles.avatarImg} />
+        </div>
         <div className={styles.avatarGlow} />
 
         {/* Tech badges orbiting */}

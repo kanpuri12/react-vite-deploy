@@ -85,6 +85,19 @@
   transition: transform 0.2s;
 }
 
+.themeToggle {
+  margin-left: 12px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  background: transparent;
+  border: 1px solid var(--border);
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.themeToggle:hover { border-color: var(--accent); color: var(--accent); }
+
 .drawer {
   display: none;
   position: absolute;

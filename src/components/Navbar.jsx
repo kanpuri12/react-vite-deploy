@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { motion, AnimatePresence } from 'framer-motion'
 import { setMenuOpen, toggleMenu, setActiveSection } from '../store/uiSlice'
+import { useTheme } from '../hooks/index.js'
 import { downloadResume } from '../services/api'
 import styles from './Navbar.module.css'
 
@@ -10,7 +11,7 @@ const NAV_LINKS = [
   { label: 'Experience', href: '#experience' },
   { label: 'Projects',   href: '#projects' },
   { label: 'Skills',     href: '#skills' },
-  { label: 'Blog',       href: '#blog' },
+  // { label: 'Blog',       href: '#blog' },
   { label: 'Contact',    href: '#contact' },
 ]
 
@@ -18,6 +19,7 @@ export default function Navbar() {
   const dispatch = useDispatch()
   const { menuOpen, activeSection } = useSelector(s => s.ui)
   const location = useLocation()
+  const { theme, toggle } = useTheme()
 
   // Track scroll for scrolled style
   useEffect(() => {
@@ -79,6 +81,10 @@ export default function Navbar() {
 
       <button className={styles.cta} onClick={downloadResume}>
         Resume ↓
+      </button>
+
+      <button className={styles.themeToggle} onClick={toggle} aria-label="Toggle theme">
+        {theme === 'dark' ? 'Light' : 'Dark'}
       </button>
 
       <button

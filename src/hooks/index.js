@@ -37,3 +37,27 @@ export function useContact() {
 
   return { submit, status, error, reset }
 }
+
+// src/hooks/useTheme.js
+import { useEffect } from 'react'
+
+export function useTheme() {
+  const [theme, setTheme] = useState(() => {
+    try {
+      return localStorage.getItem('theme') || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+    } catch (e) {
+      return 'light'
+    }
+  })
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('theme', theme)
+    } catch (e) {}
+    if (theme === 'dark') document.documentElement.setAttribute('data-theme', 'dark')
+    else document.documentElement.removeAttribute('data-theme')
+  }, [theme])
+
+  const toggle = () => setTheme(t => (t === 'dark' ? 'light' : 'dark'))
+  return { theme, setTheme, toggle }
+}
