@@ -6,8 +6,6 @@
   align-items: start;
 }
 
-.info {}
-
 .infoText {
   font-size: 15px;
   color: var(--ink2);
@@ -121,6 +119,30 @@ a.contactLink:hover {
 .successBox p {
   font-size: 15px;
   color: var(--ink);
+}
+
+.formContainer {
+  width: 100%;
+  max-width: 760px;
+  margin: 0 auto;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 30px rgba(2,6,23,0.06);
+}
+
+.formIframe {
+  width: 100%;
+  height: 640px;
+  border: none;
+}
+
+.embedToggle {
+  margin-bottom: 12px;
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
 }
 
 @media (max-width: 768px) {

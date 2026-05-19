@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { setMenuOpen, toggleMenu, setActiveSection } from '../store/uiSlice'
 import { useTheme } from '../hooks/index.js'
 import { downloadResume } from '../services/api'
+import { FiSun, FiMoon } from 'react-icons/fi'
 import styles from './Navbar.module.css'
 
 const NAV_LINKS = [
@@ -84,7 +85,7 @@ export default function Navbar() {
       </button>
 
       <button className={styles.themeToggle} onClick={toggle} aria-label="Toggle theme">
-        {theme === 'dark' ? 'Light' : 'Dark'}
+        {theme === 'dark' ? <FiSun /> : <FiMoon />}
       </button>
 
       <button
@@ -118,7 +119,12 @@ export default function Navbar() {
                 {label}
               </motion.button>
             ))}
-            <button className={styles.cta} onClick={downloadResume}>Resume ↓</button>
+            <div style={{ display: 'flex', gap: 8, marginTop: 12 }}>
+              <button className={styles.cta} onClick={downloadResume}>Resume ↓</button>
+              <button className={styles.themeToggle} onClick={toggle} aria-label="Toggle theme">
+                {theme === 'dark' ? <FiSun /> : <FiMoon />}
+              </button>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

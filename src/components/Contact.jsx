@@ -24,6 +24,11 @@ export default function Contact() {
   const { status, error } = useSelector(s => s.contact)
   const [form, setForm] = useState(INITIAL_FORM)
   const [toast, setToast] = useState({ open: false, type: 'success', message: '' })
+  // Google Form embed support
+  const googleFormId = import.meta.env.VITE_GOOGLE_FORM_ID || ''
+  console.log('Google Form ID:', googleFormId);
+  const [showEmbed, setShowEmbed] = useState(false)
+  const formEmbedUrl = googleFormId ? `https://docs.google.com/forms/d/e/${googleFormId}/viewform?embedded=true` : ''
 
   const handleChange = (e) => setForm(prev => ({ ...prev, [e.target.name]: e.target.value }))
 
@@ -49,7 +54,7 @@ export default function Contact() {
     const res = await axios.post('https://api.emailjs.com/api/v1.0/email/send', data);
     console.log('Email sent successfully:', res.data);
     setForm(INITIAL_FORM)
-  setToast({ open: true, type: 'success', message: 'Message sent! I\'ll get back to you soon.' })
+    setToast({ open: true, type: 'success', message: 'Message sent! I\'ll get back to you soon.' })
    }
    catch(err){
     console.error('Email sending error:', err);
@@ -92,7 +97,20 @@ export default function Contact() {
         </div>
 
         <div className={styles.formWrap}>
-          {status === 'success' ? (
+          {googleFormId && (
+            <div className={styles.embedToggle}>
+              <label>
+                <input type="checkbox" checked={showEmbed} onChange={() => setShowEmbed(s => !s)} />{' '}
+                Use embedded Google Form
+              </label>
+            </div>
+          )}
+
+          {showEmbed && googleFormId ? (
+            <div className={styles.formContainer}>
+              <iframe className={styles.formIframe} src={formEmbedUrl} title="Contact form" />
+            </div>
+          ) : status === 'success' ? (
             <motion.div
               className={styles.successBox}
               initial={{ scale: 0.9, opacity: 0 }}
@@ -120,6 +138,7 @@ export default function Contact() {
                   />
                 </div>
               ))}
+
               <div className={styles.field}>
                 <label className={styles.label} htmlFor="message">Message</label>
                 <textarea
