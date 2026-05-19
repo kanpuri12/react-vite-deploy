@@ -38,6 +38,60 @@
   list-style: none;
 }
 
+.navItem { position: relative }
+
+.servicesMenu { position: relative; display: inline-block }
+.servicesButton {
+  background: none;
+  border: none;
+  color: var(--ink2);
+  font-size: 13px;
+  cursor: pointer;
+}
+.servicesDropdown {
+  /* positioned below the button; use 100% to avoid a hover gap */
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 8px 30px rgba(2,6,23,0.08);
+  display: none;
+  min-width: 220px;
+  z-index: 200;
+  pointer-events: auto;
+}
+.servicesLink { display: block; padding: 6px 10px; color: var(--ink); text-decoration: none }
+.servicesGroup { padding-bottom: 6px; border-bottom: 1px solid rgba(0,0,0,0.03); margin-bottom: 6px }
+.servicesChildren { padding-left: 10px; display: flex; flex-direction: column; gap: 4px }
+.servicesChild { font-size: 13px; color: var(--ink2); text-decoration: none }
+
+/* Services dropdown */
+.navItem { position: relative }
+.servicesMenu { position: relative }
+.servicesDropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  background: var(--card);
+  border: 1px solid var(--border);
+  box-shadow: 0 8px 30px rgba(2,6,23,0.08);
+  padding: 12px;
+  border-radius: 8px;
+  display: none;
+  min-width: 220px;
+  z-index: 200;
+}
+.servicesMenu:hover .servicesDropdown { display: block }
+.servicesDropdown.open { display: block }
+.servicesCol { display: flex; flex-direction: column; gap: 8px }
+.servicesLink { background: none; border: none; text-align: left; padding: 6px 10px; border-radius: 6px; cursor: pointer; color: var(--ink2); text-decoration: none; display: block }
+.servicesLink:hover { background: var(--tag-bg); color: var(--accent) }
+.servicesButton { background: none; border: none; font-family: var(--font-body); font-size: 14px; color: var(--ink2); cursor: pointer }
+.servicesButton:hover { color: var(--accent) }
+
 .link {
   font-size: 13px;
   color: var(--ink2);
@@ -122,6 +176,10 @@
   font-family: var(--font-body);
   transition: color 0.2s;
 }
+
+.drawerLink + .drawerLink { margin-left: 8px }
+
+.drawer .servicesChild { padding-left: 12px; font-size: 14px }
 
 .drawerLink:hover { color: var(--accent); }
 

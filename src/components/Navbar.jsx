@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -12,8 +12,52 @@ const NAV_LINKS = [
   { label: 'Experience', href: '#experience' },
   { label: 'Projects',   href: '#projects' },
   { label: 'Skills',     href: '#skills' },
-  // { label: 'Blog',       href: '#blog' },
+  { label: 'Blog',       href: '#blog' },
   { label: 'Contact',    href: '#contact' },
+]
+
+const SERVICES = [
+  {
+    label: 'Web Development',
+    href: '/services/web',
+    children: [
+      { label: 'React / SPA', href: '/services/web#react' },
+      { label: 'Full-stack (React + Java)', href: '/services/web#fullstack' },
+      { label: 'Micro-frontends', href: '/services/web#microfrontends' },
+    ],
+  },
+  {
+    label: 'Mobile Development',
+    href: '/services/mobile',
+    children: [
+      { label: 'Flutter', href: '/services/mobile#flutter' },
+      { label: 'React Native', href: '/services/mobile#react-native' },
+    ],
+  },
+  {
+    label: 'Cloud Infrastructure',
+    href: '/services/cloud',
+    children: [
+      { label: 'AWS Architecture', href: '/services/cloud#aws' },
+      { label: 'CI/CD & IaC', href: '/services/cloud#cicd' },
+    ],
+  },
+  {
+    label: 'System Design',
+    href: '/services/system-design',
+    children: [
+      { label: 'Architecture Review', href: '/services/system-design#review' },
+      { label: 'Scalability & Performance', href: '/services/system-design#scaling' },
+    ],
+  },
+  {
+    label: 'Generative AI PoC',
+    href: '/services/genai',
+    children: [
+      { label: 'RAG / Retrieval', href: '/services/genai#rag' },
+      { label: 'Agents & Workflows', href: '/services/genai#agents' },
+    ],
+  },
 ]
 
 export default function Navbar() {
@@ -21,6 +65,9 @@ export default function Navbar() {
   const { menuOpen, activeSection } = useSelector(s => s.ui)
   const location = useLocation()
   const { theme, toggle } = useTheme()
+  const [servicesOpen, setServicesOpen] = useState(false)
+  const hoverTimeout = useRef(null)
+  const servicesMenuRef = useRef(null)
 
   // Track scroll for scrolled style
   useEffect(() => {
@@ -38,6 +85,13 @@ export default function Navbar() {
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [dispatch])
+
+  useEffect(() => {
+    return () => {
+      // cleanup hover timeout
+      if (hoverTimeout.current) clearTimeout(hoverTimeout.current)
+    }
+  }, [])
 
   const handleAnchor = (href) => {
     dispatch(setMenuOpen(false))
@@ -78,6 +132,34 @@ export default function Navbar() {
             </li>
           )
         })}
+
+        <li className={styles.navItem}>
+          <div
+            className={styles.servicesMenu}
+            ref={servicesMenuRef}
+            onMouseEnter={() => {
+              if (hoverTimeout.current) { clearTimeout(hoverTimeout.current); hoverTimeout.current = null }
+              setServicesOpen(true)
+            }}
+            onMouseLeave={() => {
+              hoverTimeout.current = setTimeout(() => setServicesOpen(false), 120)
+            }}
+          >
+            <button className={styles.servicesButton} onClick={() => setServicesOpen(s => !s)} aria-expanded={servicesOpen}>Services ▾</button>
+            <div className={`${styles.servicesDropdown} ${servicesOpen ? styles.open : ''}`}>
+              {SERVICES.map(s => (
+                <div key={s.label} className={styles.servicesGroup}>
+                  <Link to={s.href} className={styles.servicesLink} onClick={() => dispatch(setMenuOpen(false))}>{s.label}</Link>
+                  <div className={styles.servicesChildren}>
+                    {s.children.map(c => (
+                      <Link key={c.label} to={c.href} className={styles.servicesChild} onClick={() => dispatch(setMenuOpen(false))}>{c.label}</Link>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </li>
       </ul>
 
       <button className={styles.cta} onClick={downloadResume}>
@@ -119,6 +201,15 @@ export default function Navbar() {
                 {label}
               </motion.button>
             ))}
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginTop: 8 }}>
+              <Link to="/services/web" className={styles.drawerLink} onClick={() => dispatch(setMenuOpen(false))}>Web Development</Link>
+              <Link to="/services/mobile" className={styles.drawerLink} onClick={() => dispatch(setMenuOpen(false))}>Mobile Development</Link>
+              <Link to="/services/cloud" className={styles.drawerLink} onClick={() => dispatch(setMenuOpen(false))}>Cloud Infrastructure</Link>
+              <Link to="/services/system-design" className={styles.drawerLink} onClick={() => dispatch(setMenuOpen(false))}>System Design</Link>
+              <Link to="/services/genai" className={styles.drawerLink} onClick={() => dispatch(setMenuOpen(false))}>Generative AI PoC</Link>
+            </div>
+
             <div style={{ display: 'flex', gap: 8, marginTop: 12 }}>
               <button className={styles.cta} onClick={downloadResume}>Resume ↓</button>
               <button className={styles.themeToggle} onClick={toggle} aria-label="Toggle theme">
